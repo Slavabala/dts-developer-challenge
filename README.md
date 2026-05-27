@@ -5,11 +5,11 @@ A full-stack task management application for HMCTS caseworkers, built using the 
 ## Architecture
 
 ```
-┌─────────────────┐     HTTP     ┌───────────────────────┐     JDBC     ┌──────────┐
-│  Node.js / Exp  │ ──────────▶ │  Java / Spring Boot   │ ──────────▶ │ Postgres │
-│  Frontend :3000 │              │  Backend API :8080    │              └──────────┘
+┌─────────────────┐     HTTP     ┌───────────────────────┐     JDBC   ┌──────────┐
+│  Node.js / Exp  │ ──────────▶  │  Java / Spring Boot   │ ──────────▶│ Postgres │
+│  Frontend :3000 │              │  Backend API :8080    │            └──────────┘
 └─────────────────┘              └───────────────────────┘     Cache    ┌──────────┐
-                                                               ──────▶ │  Redis   │
+                                                               ──────▶  │  Redis   │
                                                                         └──────────┘
 ```
 
