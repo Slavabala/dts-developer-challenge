@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-frontend
+  labels:
+    app: task-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-frontend
+  template:
+    metadata:
+      labels:
+        app: task-frontend
+    spec:
+      containers:
+        - name: task-frontend
+          image: hmcts/task-management-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: API_BASE_URL
+              value: http://task-backend:8080/api
+            - name: NODE_ENV
+              value: production
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000

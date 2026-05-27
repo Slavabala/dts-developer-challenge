@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="/" class="govuk-back-link">Back to tasks</a>
+
+    <h1 class="govuk-heading-xl">{{ task.title }}</h1>
+
+    {% if task.description %}
+    <p class="govuk-body">{{ task.description }}</p>
+    {% endif %}
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value">
+          <strong class="govuk-tag
+            {% if task.status === 'DONE' %}govuk-tag--green
+            {% elif task.status === 'IN_PROGRESS' %}govuk-tag--blue
+            {% else %}govuk-tag--grey{% endif %}">
+            {{ statusLabels[task.status] }}
+          </strong>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Due date</dt>
+        <dd class="govuk-summary-list__value">{{ task.dueDate | replace("T", " ") | truncate(16, true, "") }}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Created</dt>
+        <dd class="govuk-summary-list__value">{{ task.createdAt | replace("T", " ") | truncate(16, true, "") }}</dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">Update status</h2>
+    <form method="POST" action="/tasks/{{ task.id }}/status">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="status">New status</label>
+        <select class="govuk-select" id="status" name="status">
+          {% for s in statuses %}
+          <option value="{{ s }}" {% if s === task.status %}selected{% endif %}>{{ statusLabels[s] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="govuk-button">Update status</button>
+    </form>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <form method="POST" action="/tasks/{{ task.id }}/delete"
+          onsubmit="return confirm('Are you sure you want to delete this task?')">
+      <button type="submit" class="govuk-button govuk-button--warning">Delete task</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

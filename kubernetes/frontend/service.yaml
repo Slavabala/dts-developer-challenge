@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-frontend
+  labels:
+    app: task-frontend
+spec:
+  selector:
+    app: task-frontend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer

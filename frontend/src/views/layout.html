@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} - {% endif %}HMCTS Task Management</title>
+  <link rel="stylesheet" href="/assets/css/govuk-frontend.min.css">
+  <style>
+    .task-status-todo        { color: #0b0c0c; }
+    .task-status-in_progress { color: #1d70b8; font-weight: bold; }
+    .task-status-done        { color: #00703c; font-weight: bold; }
+    .task-overdue            { color: #d4351c; }
+  </style>
+</head>
+<body class="govuk-template__body">
+
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
+<header class="govuk-header" role="banner">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="/" class="govuk-header__link govuk-header__link--homepage">
+        <span class="govuk-header__logotype-text">HMCTS</span>
+      </a>
+    </div>
+    <div class="govuk-header__content">
+      <a href="/" class="govuk-header__link govuk-header__service-name">Task Management</a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper" id="main-content" role="main">
+    {% if success %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+         aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">{{ success }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container">
+    <div class="govuk-footer__meta">
+      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+        <span class="govuk-footer__licence-description">
+          Built by HMCTS &mdash; His Majesty's Courts &amp; Tribunals Service
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

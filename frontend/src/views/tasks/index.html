@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Caseworker Tasks</h1>
+
+    {% if tasks.length === 0 %}
+      <p class="govuk-body">No tasks found. <a class="govuk-link" href="/tasks/new">Create your first task</a>.</p>
+    {% else %}
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header">Title</th>
+            <th class="govuk-table__header">Status</th>
+            <th class="govuk-table__header">Due Date</th>
+            <th class="govuk-table__header">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for task in tasks %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a class="govuk-link" href="/tasks/{{ task.id }}">{{ task.title }}</a>
+            </td>
+            <td class="govuk-table__cell">
+              <strong class="govuk-tag
+                {% if task.status === 'DONE' %}govuk-tag--green
+                {% elif task.status === 'IN_PROGRESS' %}govuk-tag--blue
+                {% else %}govuk-tag--grey{% endif %}">
+                {{ statusLabels[task.status] }}
+              </strong>
+            </td>
+            <td class="govuk-table__cell">{{ task.dueDate | replace("T", " ") | truncate(16, true, "") }}</td>
+            <td class="govuk-table__cell">
+              <a class="govuk-link" href="/tasks/{{ task.id }}">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    <a href="/tasks/new" class="govuk-button">Create new task</a>
+  </div>
+</div>
+{% endblock %}

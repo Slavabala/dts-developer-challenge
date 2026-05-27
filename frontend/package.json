@@ -1,0 +1,36 @@
+{
+  "name": "task-management-frontend",
+  "version": "0.1.0",
+  "description": "HMCTS task management frontend",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src test"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "govuk-frontend": "^5.4.0",
+    "nunjucks": "^3.2.4",
+    "express-validator": "^7.1.0",
+    "morgan": "^1.10.0",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "eslint": "^9.7.0",
+    "nodemon": "^3.1.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  }
+}
